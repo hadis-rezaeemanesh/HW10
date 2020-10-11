@@ -36,6 +36,7 @@ public class FrontPageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_front_page, container, false);
 
         findViews(view);
+        setListeners();
         return view;
     }
 
@@ -52,7 +53,9 @@ public class FrontPageFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (validateInput()){
-                    Intent intent = new Intent(getActivity(), TaskListActivity.class);
+                    Intent intent = TaskListActivity .newIntent(getActivity());
+                    intent.putExtra("UserName", mUsername.getText().toString());
+                    intent.putExtra("NumberOfTasks", mNumberTasks.getText().toString());
                     startActivity(intent);
                 }
             }
