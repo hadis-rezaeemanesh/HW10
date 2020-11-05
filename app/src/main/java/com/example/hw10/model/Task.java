@@ -1,10 +1,32 @@
 package com.example.hw10.model;
 
-public class Task {
-    private String mUserName;
-    private Enum mState;
+import java.util.Random;
+import java.util.UUID;
 
-    public Task(String userName, Enum state) {
+public class Task {
+    private UUID mId;
+
+    public UUID getId() {
+        return mId;
+    }
+
+    private String mUserName;
+    private State mState;
+    private Boolean mColor;
+
+    public Boolean getColor() {
+        return mColor;
+    }
+
+    public void setColor(Boolean color) {
+        mColor = color;
+    }
+
+    public Task(){
+        mId = UUID.randomUUID();
+    }
+
+    public Task(String userName, State state) {
         mUserName = userName;
         mState = state;
     }
@@ -17,11 +39,12 @@ public class Task {
         mUserName = userName;
     }
 
-    public Enum getState() {
+    public State getState() {
         return mState;
     }
 
-    public void setState(Enum state) {
-        mState = state;
+    public void setState(State state) {
+        int pick = new Random().nextInt(State.values().length);
+        mState = state.values()[pick];
     }
 }

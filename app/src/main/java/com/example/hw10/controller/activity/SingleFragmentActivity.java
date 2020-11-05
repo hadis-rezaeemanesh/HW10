@@ -1,19 +1,16 @@
-package com.example.hw10;
+package com.example.hw10.controller.activity;
+
+import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
+import com.example.hw10.R;
+import com.example.hw10.controller.fragment.FrontPageFragment;
 
-public class MainActivity extends AppCompatActivity {
-
-    public static Intent newIntent(Context context){
-        Intent intent = new Intent(context, MainActivity.class);
-        return intent;
-    }
+public abstract class SingleFragmentActivity extends AppCompatActivity {
+    public abstract Fragment createFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,11 +19,10 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentById(R.id.fragment_container);
-        FrontPageFragment frontPageFragment = new FrontPageFragment();
         if (fragment == null) {
             fragmentManager
                     .beginTransaction()
-                    .add(R.id.fragment_container, frontPageFragment)
+                    .add(R.id.fragment_container, createFragment())
                     .commit();
         }
     }

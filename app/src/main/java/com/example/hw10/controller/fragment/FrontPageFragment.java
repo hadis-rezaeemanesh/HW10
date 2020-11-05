@@ -1,4 +1,4 @@
-package com.example.hw10;
+package com.example.hw10.controller.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,16 +10,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.hw10.R;
+import com.example.hw10.controller.activity.TaskListActivity;
+import com.example.hw10.model.Information;
+import com.example.hw10.model.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.List;
+
 public class FrontPageFragment extends Fragment {
+
 
     private TextInputLayout mUsernameForm;
     private TextInputLayout mNumberTasksForm;
     private TextInputEditText mUsername;
     private TextInputEditText mNumberTasks;
     private Button mCreateListTasks;
+
+    private Task mTask;
+    private Information mInformation;
 
     public FrontPageFragment() {
         // Required empty public constructor
@@ -49,13 +59,14 @@ public class FrontPageFragment extends Fragment {
     }
 
     private void setListeners(){
+
         mCreateListTasks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (validateInput()){
-                    Intent intent = TaskListActivity .newIntent(getActivity());
-                    intent.putExtra("UserName", mUsername.getText().toString());
-                    intent.putExtra("NumberOfTasks", mNumberTasks.getText().toString());
+                    mInformation.setName(mUsername.getText().toString());
+                    mInformation.setNumber(Integer.parseInt(mNumberTasks.getText().toString()));
+                    Intent intent = TaskListActivity.newIntent(getActivity(), mInformation.getId());
                     startActivity(intent);
                 }
             }
